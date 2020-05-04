@@ -4456,8 +4456,10 @@ declare module Immutable {
      * Note: `flatten(true)` operates on Collection<any, Collection<K, V>> and
      * returns Collection<K, V>
      */
-    flatten(depth?: number): Collection<any, any>;
-    flatten(shallow?: boolean): Collection<any, any>;
+    flatten(depthOrShallow?: 1 | true): K extends number
+        ? V extends Collection<number, any> ? V
+        : Collection<K, V> : never;
+    flatten(depthOrShallow: number | false): never;
 
     /**
      * Flat-maps the Collection, returning a Collection of the same type.
